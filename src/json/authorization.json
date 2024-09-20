@@ -1,0 +1,31 @@
+{
+    "user": {
+        "user_login": [],
+        "user_check": [
+            1,
+            2
+           
+        ],
+        "user_logout": [
+            1,
+            2
+        ],
+        "user_add": [
+            1
+        ],
+        "user_list": [
+            1
+        ],
+        "user_view": [
+            1,
+            2
+        ],
+        "user_edit": [
+            1
+        ],
+        "user_delete": [
+            1,
+            2
+        ]
+    }
+}
