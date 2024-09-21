@@ -52,7 +52,7 @@ const authenticate = async (req: ExtendedRequest, res: Response, next: NextFunct
                 SELECT user.id
                 FROM user
                 INNER JOIN user_login_session ON user_login_session.user_id = user.id
-                WHERE user.status = 1 && user.id = ? && user.role = ? && user_login_session.token = ? && user_login_session.status = 1 && (DATE_ADD(login_time, INTERVAL ${maxAge} SECOND) > ?)`,
+                WHERE user.status = 2 && user.id = ? && user.role = ? && user_login_session.token = ? && user_login_session.status = 1 && (DATE_ADD(login_time, INTERVAL ${maxAge} SECOND) > ?)`,
                 [data.data.user, data.data.role, hashToken, currentDateTime]
             );
 

@@ -4,7 +4,6 @@
         "user_check": [
             1,
             2
-           
         ],
         "user_logout": [
             1,
@@ -24,6 +23,28 @@
             1
         ],
         "user_delete": [
+            1,
+            2
+        ]
+    },
+    "client": {
+        "client_add": [
+            1,
+            2
+        ],
+        "client_list": [
+            1,
+            2
+        ],
+        "client_view": [
+            1,
+            2
+        ],
+        "client_edit": [
+            1,
+            2
+        ],
+        "client_delete": [
             1,
             2
         ]

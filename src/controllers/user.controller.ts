@@ -2,7 +2,7 @@ import DeviceDetector from "node-device-detector";
 import {validateIPAddress, xssPrevent} from "../utils/commonValidation";
 import services from "../services/user.service";
 import logger from '../config/logger';
-import validate from "./../validate/user.validate";
+import validate from "../validate/user.validate";
 import { Response } from "express";
 import { ExtendedRequest } from "../config/types";
 import DefaultResponse from "../utils/DefaultResponse";
@@ -21,6 +21,7 @@ const user_check = catchAsync(async (req: ExtendedRequest, res: Response) => {
          * Input Validation
          */
         const data = await validateInput(req.body, validate.user_check);
+        console.log("🚀 ~ constuser_check=catchAsync ~ data:", data)
         if (!data.status) {
             res.status(200).send( data );
             return;
@@ -31,6 +32,7 @@ const user_check = catchAsync(async (req: ExtendedRequest, res: Response) => {
          * Authorization
          */
         let authData = authorize('user', 'user_check', req);
+        console.log("🚀 ~ constuser_check=catchAsync ~ authData:", authData)
         if (!authData.status) {
             DefaultResponse.error(res, '403');
             return;

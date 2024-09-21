@@ -115,7 +115,7 @@ const user_view = async ( data:user_view_data ) => {
     }
 };
 
-const user_list = async (data:user_view_data) => {
+const user_list = async (data:user_list_data) => {
 
     try {
 

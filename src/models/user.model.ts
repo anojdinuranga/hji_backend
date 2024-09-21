@@ -12,7 +12,7 @@ const user_check = async ( authUserId: number ) => {
 
     try {
 
-        let result = await db.query(`SELECT user.id, user.role FROM user WHERE user.id = ? && user.status = ?`, [ authUserId, 1]);
+        let result = await db.query(`SELECT user.id, user.role FROM user WHERE user.id = ? && user.status = ?`, [ authUserId, 2]);
         if (!result.status) {
             return result;
         }
@@ -51,7 +51,7 @@ const user_login = async ( employeeNumber:string, password:string ) => {
     password = await bcrypt.hash( password, config.pass_salt ); // Hash the password
     console.log("🚀 ~ constuser_login= ~ password:", password)
     
-    let result  = await db.query('SELECT user.id, user.role FROM user WHERE user.employee_number = ? && user.password = ? && user.status = 1', [employeeNumber, password]);
+    let result  = await db.query('SELECT user.id, user.role FROM user WHERE user.employee_number = ? && user.password = ? && user.status = 2', [employeeNumber, password]);
 
     // If error in sql query
     if ( !result.status ) {
