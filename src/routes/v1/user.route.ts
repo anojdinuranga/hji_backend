@@ -194,7 +194,7 @@ export default router;
  *               employeeNumber:
  *                 type: string
  *                 description: email
- *                 example: "emp123"
+ *                 example: "EMP001"
  *               password:
  *                 type: string
  *                 description: password

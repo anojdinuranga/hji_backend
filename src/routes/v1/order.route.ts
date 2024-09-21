@@ -54,7 +54,7 @@ export default router;
  *               image:
  *                 type: string
  *                 description: image
- *                 example: "example"
+ *                 example: null
  *               fabricBlend:
  *                 type: string
  *                 description: fabric blend
@@ -110,7 +110,7 @@ export default router;
  *               techPack:
  *                 type: string
  *                 description: tech pack
- *                 example: "example"
+ *                 example: null
  *               gsm:
  *                 type: number
  *                 description: gsm
@@ -159,7 +159,7 @@ export default router;
  *               image:
  *                 type: string
  *                 description: image
- *                 example: "example"
+ *                 example: null
  *               fabricBlend:
  *                 type: string
  *                 description: fabric blend
@@ -215,7 +215,7 @@ export default router;
  *               techPack:
  *                 type: string
  *                 description: tech pack
- *                 example: "example"
+ *                 example: null
  *               gsm:
  *                 type: number
  *                 description: gsm
