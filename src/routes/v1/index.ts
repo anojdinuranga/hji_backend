@@ -2,6 +2,7 @@ import express, { Router } from 'express';
 import devRoute from './dev.route';
 import userRoute from './user.route';
 import clientRoute from './client.route';
+import orderRoute from './order.route';
 import config from '../../config/config';
 import docsRoute from './docs.route';
 
@@ -15,6 +16,7 @@ const defaultRoutes:defaultRoutesObj[] = [
   { path: '/dev', route: devRoute },
   { path: '/user', route: userRoute },
   { path: '/client', route: clientRoute },
+  { path: '/order', route: orderRoute },
 ];
 
 // routes available only in development mode

@@ -48,5 +48,27 @@
             1,
             2
         ]
+    },
+    "order": {
+        "order_add": [
+            1,
+            2
+        ],
+        "order_list": [
+            1,
+            2
+        ],
+        "order_view": [
+            1,
+            2
+        ],
+        "order_edit": [
+            1,
+            2
+        ],
+        "order_delete": [
+            1,
+            2
+        ]
     }
 }
