@@ -70,5 +70,30 @@
             1,
             2
         ]
+    },
+    "user_register_request": {
+        "user_register_request_add": [
+            1,
+            2
+        ],
+        "user_register_request_list": [
+            1,
+            2
+        ],
+        "user_register_request_view": [
+            1,
+            2
+        ],
+        "user_register_request_edit": [
+            1,
+            2
+        ],
+        "user_register_request_accept": [
+            1
+        ],
+        "user_register_request_delete": [
+            1,
+            2
+        ]
     }
 }

@@ -2,6 +2,7 @@ import express, { Router } from 'express';
 import devRoute from './dev.route';
 import userRoute from './user.route';
 import clientRoute from './client.route';
+import userRegisterRequestRoute from './user_register_requst.route';
 import orderRoute from './order.route';
 import config from '../../config/config';
 import docsRoute from './docs.route';
@@ -16,6 +17,7 @@ const defaultRoutes:defaultRoutesObj[] = [
   { path: '/dev', route: devRoute },
   { path: '/user', route: userRoute },
   { path: '/client', route: clientRoute },
+  { path: '/user_register_request', route: userRegisterRequestRoute },
   { path: '/order', route: orderRoute },
 ];
 

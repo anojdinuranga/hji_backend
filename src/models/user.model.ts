@@ -28,6 +28,23 @@ const user_check = async ( authUserId: number ) => {
     
 };
 
+const user_is_exist = async (employeeNumber: string) => {
+
+    try {
+
+        let result = await db.query('SELECT COUNT(*) as count FROM user WHERE user.employee_number = ?', [employeeNumber]);
+        if (result.status) {
+            return result.data[0].count > 0;
+        }
+        return result;
+
+    } catch ( err ) {
+        logger.error( err );
+        return false;
+    }
+    
+};
+
 const user_logout = async ( hashToken: string, authUserId: number ) => {
 
     try {
@@ -231,5 +248,6 @@ export default {
     user_edit,
     user_view,
     user_list,
-    user_delete
+    user_delete,
+    user_is_exist
 }

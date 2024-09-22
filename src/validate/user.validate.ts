@@ -24,7 +24,7 @@ const user_login = joi.object({
     ,
     password: joi.string()
         .min(1)
-        .max(1000)
+        .max(150)
         .label("password")
         .messages({ 'string.min': 'wrong password' })
         .required()
