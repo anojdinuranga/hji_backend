@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 21, 2024 at 02:50 AM
+-- Generation Time: Sep 22, 2024 at 07:59 AM
 -- Server version: 11.3.2-MariaDB
 -- PHP Version: 8.2.12
 
@@ -124,7 +124,10 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `employee_number`, `name`, `password`, `email`, `mobile`, `status`, `role`, `added_by`, `added_time`, `updated_by`, `updated_time`) VALUES
-(1, 'EMP001', 'super admin', '$2a$10$ceeb2bcf7836hcd2c40b1ujoA/EG5m0CBwk19mtdLfKX1ibV0dMSe', 'example@email.com', '0786541232', 2, 1, NULL, '2024-04-06 11:21:16', 1, '2024-09-20 14:48:20');
+(1, 'EMP001', 'super admin', '$2a$10$ceeb2bcf7836hcd2c40b1ujoA/EG5m0CBwk19mtdLfKX1ibV0dMSe', 'example@email.com', '0786541232', 2, 1, NULL, '2024-04-06 11:21:16', 1, '2024-09-20 14:48:20'),
+(8, 'EMP002', 'sanjana', '$2a$10$ceeb2bcf7836hcd2c40b1ujoA/EG5m0CBwk19mtdLfKX1ibV0dMSe', 'sanjana@example.com', '0765623214', 2, 2, 1, '2024-09-22 00:01:43', NULL, '2024-09-22 05:31:43'),
+(9, 'EMP0020', 'sanjana2', '$2a$10$ceeb2bcf7836hcd2c40b1ujoA/EG5m0CBwk19mtdLfKX1ibV0dMSe', 'sanjana2@example.com', '0118862354', 2, 2, 1, '2024-09-22 00:16:32', NULL, '2024-09-22 05:46:32'),
+(10, 'EMP003', 'sanjana33', '$2a$10$ceeb2bcf7836hcd2c40b1ujoA/EG5m0CBwk19mtdLfKX1ibV0dMSe', 'sanjana33@example.com', '0118862354', 2, 2, 1, '2024-09-22 00:28:19', NULL, '2024-09-22 05:58:19');
 
 -- --------------------------------------------------------
 
@@ -152,7 +155,36 @@ INSERT INTO `user_login_session` (`id`, `user_id`, `token`, `login_time`, `ip_ad
 (8, 1, '$2a$10$ceeb2bcf7836hcd2c40b1upR4DWbmWk8pFVVHiT8rYvFtbjzjnfVS', '2024-09-20 03:41:02', '', 'Windows', 1),
 (9, 1, '$2a$10$ceeb2bcf7836hcd2c40b1uNFZXW5ynXqVGBk.5DnOlSvtSASwUDM6', '2024-09-20 14:28:32', '', 'Windows', 1),
 (10, 1, '$2a$10$ceeb2bcf7836hcd2c40b1uoSEl7ajpQlgR.6KTSMIqLtlc70C1Qt6', '2024-09-20 15:19:23', '', 'Windows', 1),
-(12, 1, '$2a$10$ceeb2bcf7836hcd2c40b1uJsLPyamNiSCLBrf8zOBmnmy3bkKqR7e', '2024-09-20 16:20:59', '', 'Windows', 1);
+(12, 1, '$2a$10$ceeb2bcf7836hcd2c40b1uJsLPyamNiSCLBrf8zOBmnmy3bkKqR7e', '2024-09-20 16:20:59', '', 'Windows', 1),
+(14, 1, '$2a$10$ceeb2bcf7836hcd2c40b1umfHo.8VKdIW9CB.CMcJ5vXvyGLrBdiu', '2024-09-22 00:00:18', '', 'Windows', 1),
+(15, 1, '$2a$10$ceeb2bcf7836hcd2c40b1uDLmtZmfi7wLskHLSgok0eBbyAjKXTqy', '2024-09-22 00:01:01', '', 'Windows', 1),
+(16, 8, '$2a$10$ceeb2bcf7836hcd2c40b1uGIkOrvVtRwRySUZPRc6I2eP4ay6W7jq', '2024-09-22 00:01:51', '', 'Windows', 1),
+(17, 9, '$2a$10$ceeb2bcf7836hcd2c40b1u23Ug.Ha6UvhNfRf3xI64CbIwQLg/bfK', '2024-09-22 00:16:50', '', 'Windows', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_register_request`
+--
+
+CREATE TABLE `user_register_request` (
+  `id` int(11) NOT NULL,
+  `name` varchar(200) DEFAULT NULL,
+  `employee_number` varchar(100) DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT 1,
+  `added_by` int(11) DEFAULT NULL,
+  `added_time` timestamp NULL DEFAULT current_timestamp(),
+  `updated_by` int(11) DEFAULT NULL,
+  `updated_time` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `user_register_request`
+--
+
+INSERT INTO `user_register_request` (`id`, `name`, `employee_number`, `status`, `added_by`, `added_time`, `updated_by`, `updated_time`) VALUES
+(2, 'example', 'EMP0055', 1, 9, '2024-09-22 00:17:42', NULL, NULL),
+(4, 'sanjana33', 'EMP003', 2, 9, '2024-09-22 00:26:12', 1, '2024-09-22 00:28:19');
 
 -- --------------------------------------------------------
 
@@ -212,6 +244,13 @@ ALTER TABLE `user_login_session`
   ADD KEY `user_login_sessions_user_id` (`user_id`);
 
 --
+-- Indexes for table `user_register_request`
+--
+ALTER TABLE `user_register_request`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `employee_number` (`employee_number`);
+
+--
 -- Indexes for table `user_role`
 --
 ALTER TABLE `user_role`
@@ -243,13 +282,19 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `user_login_session`
 --
 ALTER TABLE `user_login_session`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `user_register_request`
+--
+ALTER TABLE `user_register_request`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user_role`
