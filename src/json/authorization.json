@@ -95,5 +95,11 @@
             1,
             2
         ]
+    },
+    "file": {
+        "single_file_upload": [
+            1,
+            2
+        ]
     }
 }
