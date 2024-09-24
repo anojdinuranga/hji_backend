@@ -13,7 +13,7 @@ const single_file_upload = async ( data: any ) =>{
         if(data.fileData.fileName == undefined || data.fileData.fileName == null){
             return DefaultResponse.errorFormat('000', 'file upload error');
         }
-        return DefaultResponse.successFormat('000', {file:'uploads/'+data.fileData.fileName});
+        return DefaultResponse.successFormat('000', {file:data.fileData.fileName});
     } catch (err) {
         logger.error(err);
         return DefaultResponse.errorFormat("500");
