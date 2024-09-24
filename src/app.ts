@@ -12,7 +12,7 @@ import httpStatus from 'http-status';
 import morgan from 'morgan';
 import { Request, Response, NextFunction } from 'express';
 import logger from './config/logger';
-
+import config from './config/config'
 const app = express();
 
 // set security HTTP headers
@@ -32,7 +32,8 @@ app.use(compression());
 // enable cors
 app.use(cors());
 app.options('*', cors());
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, '../public')))
+console.log("🚀 ~ __dirname static serve:", path.join(__dirname,"../public"));
 
 // v1 api routes
 app.use('/api/v1', routes);
