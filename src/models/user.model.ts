@@ -12,7 +12,7 @@ const user_check = async ( authUserId: number ) => {
 
     try {
 
-        let result = await db.query(`SELECT user.id, user.role FROM user WHERE user.id = ? && user.status = ?`, [ authUserId, 2]);
+        let result = await db.query(`SELECT user.id, user.role, user.name, user.email FROM user WHERE user.id = ? && user.status = ?`, [ authUserId, 2]);
         if (!result.status) {
             return result;
         }
