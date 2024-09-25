@@ -103,6 +103,14 @@ const user_register_request_accept = joi.object({
 
 
 });
+const user_register_request_reject = joi.object({
+    id: joi.number()
+        .integer()
+        .label("id")
+        .messages({ 'number.base': 'wrong id' })
+        .required()
+    ,
+});
 
 export default {
     user_register_request_accept,
@@ -111,5 +119,6 @@ export default {
     user_register_request_list,
     user_register_request_view,
     user_register_request_delete,
+    user_register_request_reject
 }
 

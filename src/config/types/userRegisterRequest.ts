@@ -35,4 +35,9 @@ export interface user_register_request_accept_data {
     authUserId: number;
     authUserRole: number;
 }
+export interface user_register_request_reject_data {
+    id: number;
+    authUserId: number;
+    authUserRole: number;
+}
 

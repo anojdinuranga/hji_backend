@@ -247,12 +247,53 @@ const user_register_request_accept = catchAsync(async (req: ExtendedRequest, res
        
 });
 
+const user_register_request_reject = catchAsync(async (req: ExtendedRequest, res: Response) =>{
+
+    try{
+
+        /**
+         * @detail
+         * Input Validation
+         */
+        const data = await validateInput(req.body, validate.user_register_request_reject);
+        if (!data.status) {
+            res.status(200).send( data );
+            return;
+        }
+
+        /**
+         * @detail
+         * Authorization
+         */
+        let authData = authorize('user_register_request', 'user_register_request_reject', req);
+        if (!authData.status) {
+            DefaultResponse.error(res, '403');
+            return;
+        }
+        data.data.authUserId = authData.data.user;
+        data.data.authUserRole = authData.data.role;
+
+        /**
+         * @detail
+         * Service function call
+         */
+        const result = await services.user_register_request_reject( data.data );
+        res.status(200).send( result );
+
+    } catch (err){
+        logger.error(err);
+        DefaultResponse.error(res, "500");
+    }
+       
+});
+
 export default {
     user_register_request_edit,
     user_register_request_accept,
     user_register_request_add,
     user_register_request_view,
     user_register_request_list,
-    user_register_request_delete
+    user_register_request_delete,
+    user_register_request_reject
 }
 

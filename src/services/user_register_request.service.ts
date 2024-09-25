@@ -6,7 +6,8 @@ import {user_register_request_add_data,
         user_register_request_list_data,
         user_register_request_view_data,
         user_register_request_delete_data,
-        user_register_request_accept_data
+        user_register_request_accept_data,
+        user_register_request_reject_data
     } from "../config/types/userRegisterRequest";
 import userModel from "../models/user.model";
 
@@ -99,6 +100,22 @@ const user_register_request_delete = async ( data:user_register_request_delete_d
         return DefaultResponse.errorFormat("500");
     }
 };
+const user_register_request_reject = async ( data:user_register_request_reject_data ) =>{
+
+    try {
+
+        let result;
+        result = await user_register_requestModel.user_register_request_edit_status( 3,data.id, data.authUserId );
+        if(!result.status) {
+            return result;
+        }
+        return result;
+
+    } catch (err) {
+        logger.error(err);
+        return DefaultResponse.errorFormat("500");
+    }
+};
 const user_register_request_accept = async ( data:user_register_request_accept_data ) =>{
 
     try {
@@ -134,6 +151,7 @@ export default {
     user_register_request_list,
     user_register_request_delete,
     user_register_request_accept,
+    user_register_request_reject
 }
 
 

@@ -91,6 +91,9 @@
         "user_register_request_accept": [
             1
         ],
+        "user_register_request_reject": [
+            1
+        ],
         "user_register_request_delete": [
             1,
             2

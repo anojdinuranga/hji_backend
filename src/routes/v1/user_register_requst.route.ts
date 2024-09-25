@@ -11,6 +11,7 @@ router.post('/list', authenticate, controller.user_register_request_list);
 router.post('/view', authenticate, controller.user_register_request_view);
 router.post('/delete', authenticate, controller.user_register_request_delete);
 router.post('/accept', authenticate, controller.user_register_request_accept);
+router.post('/reject', authenticate, controller.user_register_request_reject);
 
 export default router;
 
