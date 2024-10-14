@@ -6,6 +6,7 @@ import fileRoute from './file.route';
 import userRegisterRequestRoute from './user_register_requst.route';
 import orderRoute from './order.route';
 import enquiryRoute from './enquiry.route';
+import enquiryDataRoute from './enquiry_data.route';
 import config from '../../config/config';
 import docsRoute from './docs.route';
 
@@ -23,6 +24,7 @@ const defaultRoutes:defaultRoutesObj[] = [
   { path: '/user_register_request', route: userRegisterRequestRoute },
   { path: '/order', route: orderRoute },
   { path: '/enquiry', route: enquiryRoute },
+  { path: '/enquiry_data', route: enquiryDataRoute },
 ];
 
 // routes available only in development mode

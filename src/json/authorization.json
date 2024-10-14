@@ -93,6 +93,28 @@
             2
         ]
     },
+    "enquiry_data": {
+        "enquiry_data_add": [
+            1,
+            2
+        ],
+        "enquiry_data_list": [
+            1,
+            2
+        ],
+        "enquiry_data_view": [
+            1,
+            2
+        ],
+        "enquiry_data_edit": [
+            1,
+            2
+        ],
+        "enquiry_data_delete": [
+            1,
+            2
+        ]
+    },
     "user_register_request": {
         "user_register_request_add": [
             1,
