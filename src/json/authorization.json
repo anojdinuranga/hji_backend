@@ -148,5 +148,33 @@
             1,
             2
         ]
+    },
+    "department": {
+        "department_add": [
+            1
+        ],
+        "department_edit": [
+            1
+        ],
+        "department_list": [
+            1
+        ],
+        "department_view": [
+            1
+        ]
+    },
+    "department_designation": {
+        "department_designation_add": [
+            1
+        ],
+        "department_designation_edit": [
+            1
+        ],
+        "department_designation_list": [
+            1
+        ],
+        "department_designation_view": [
+            1
+        ]
     }
 }

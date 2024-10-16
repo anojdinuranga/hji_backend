@@ -69,7 +69,7 @@ const user_add = async ( data: user_add_data ) => {
     try {
 
         let result;
-        result = await userModel.user_add( data.employeeNumber, data.name, data.password, data.email, data.mobile, data.authUserId);
+        result = await userModel.user_add( data.employeeNumber, data.name, data.password, data.email, data.mobile,data.department,data.designation, data.authUserId);
         if(!result.status) {
             return result;
         }
@@ -86,7 +86,7 @@ const user_edit = async ( data: user_edit_data ) => {
     try {
 
         let result;
-        result = await userModel.user_edit( data.userId, data.employeeNumber, data.name, data.email, data.mobile, data.authUserId );
+        result = await userModel.user_edit( data.userId, data.employeeNumber, data.name, data.email, data.mobile,data.department,data.designation, data.authUserId );
         if(!result.status) {
             return result;
         }

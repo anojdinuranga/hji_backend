@@ -32,6 +32,8 @@ export interface user_register_request_accept_data {
     password: string;
     email: string;
     mobile: string; 
+    department: number;
+    designation: number;
     authUserId: number;
     authUserRole: number;
 }
