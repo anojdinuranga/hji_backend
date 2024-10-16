@@ -67,14 +67,13 @@ const enquiry_main_fabric_view = async (enquiryMainFabricId: number) => {
             SELECT 
                 *
             FROM enquiry_main_fabric 
-            WHERE id = ?
+            WHERE enquiry_id = ?
         `, [enquiryMainFabricId]);
 
         if (result.status) {
             if (result.data.length === 0) {
                 return DefaultResponse.errorFormat("404");
             }
-            return DefaultResponse.successFormat("200", result.data[0]);
         }
         return result;
 
