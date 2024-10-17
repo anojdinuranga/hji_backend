@@ -7,6 +7,10 @@ import {enquiry_add_data,
         enquiry_view_data,
         enquiry_delete_data
     } from "../config/types/enquiry";
+import enquiry_main_fabricModel from "../models/enquiry_main_fabric.model";
+import enquiry_accessory_fabricModel from "../models/enquiry_accessory_fabric.model";
+import enquiry_trimsModel from "../models/enquiry_trims.model";
+import enquiry_spec_sheetModel from "../models/enquiry_spec_sheet.model";
 
 
 const enquiry_add = async ( data: enquiry_add_data ) =>{
@@ -52,6 +56,22 @@ const enquiry_view = async ( data: enquiry_view_data ) =>{
         result = await enquiryModel.enquiry_view( data.id );
         if(!result.status) {
             return result;
+        }
+        let resultMainFabric = await enquiry_main_fabricModel.enquiry_main_fabric_view(data.id)
+        if(resultMainFabric.status) {
+            result.data.mainFabrics = resultMainFabric.data;            
+        }
+        let resultAccessoryFabric = await enquiry_accessory_fabricModel.enquiry_accessory_fabric_view(data.id)
+        if(resultAccessoryFabric.status) {
+            result.data.accessoryFabric = resultAccessoryFabric.data;            
+        }
+        let resultTrim = await enquiry_trimsModel.enquiry_trim_view(data.id)
+        if(resultTrim.status) {
+            result.data.trims = resultTrim.data;            
+        }
+        let resultSpecSheet = await enquiry_spec_sheetModel.enquiry_spec_sheet_view(data.id)
+        if(resultSpecSheet.status) {
+            result.data.specSheet = resultSpecSheet.data;            
         }
         return result;
 

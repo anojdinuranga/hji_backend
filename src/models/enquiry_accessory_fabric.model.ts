@@ -73,7 +73,6 @@ const enquiry_accessory_fabric_view = async (enquiryId: number) =>{
             if (result.data.length === 0) {
                 return DefaultResponse.errorFormat("404");
             }
-            return DefaultResponse.successFormat("200", result.data);
         }
         return result;
 

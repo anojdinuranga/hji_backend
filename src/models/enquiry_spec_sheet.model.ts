@@ -66,14 +66,13 @@ const enquiry_spec_sheet_view = async (enquirySpecSheetId: number) => {
             SELECT 
                 *
             FROM enquiry_spec_sheet 
-            WHERE id = ?
+            WHERE enquiry_id = ?
         `, [enquirySpecSheetId]);
 
         if (result.status) {
             if (result.data.length === 0) {
                 return DefaultResponse.errorFormat("404");
             }
-            return DefaultResponse.successFormat("200", result.data[0]);
         }
         return result;
 
