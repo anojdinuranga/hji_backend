@@ -73,6 +73,18 @@ const user_add = joi.object({
         .allow(null)
         .required()
     ,
+    department: joi.number()
+        .integer()
+        .label("user department")
+        .messages({ 'number.base': 'wrong user Department' })
+        .required()
+    ,
+    designation: joi.number()
+        .integer()
+        .label("user designation")
+        .messages({ 'number.base': 'wrong user Designation' })
+        .required()
+    ,
 
 });
 
@@ -111,6 +123,18 @@ const user_edit = joi.object({
         .pattern(/[0-9]/)
         .label("mobile")
         .messages({ 'string.min': 'wrong mobile' })
+        .required()
+    ,
+    department: joi.number()
+        .integer()
+        .label("user department")
+        .messages({ 'number.base': 'wrong user Department' })
+        .required()
+    ,
+    designation: joi.number()
+        .integer()
+        .label("user designation")
+        .messages({ 'number.base': 'wrong user Designation' })
         .required()
     ,
 

@@ -21,6 +21,8 @@ export interface user_add_data {
     password: string;
     email: string;
     mobile: string;
+    department: number;
+    designation: number;
     authUserId: number;
     authUserRole: number;
 }
@@ -29,6 +31,8 @@ export interface user_edit_data {
     employeeNumber: string;
     name: string;
     email: string;
+    department: number;
+    designation: number;
     mobile: string;
     authUserId: number;
     authUserRole: number;

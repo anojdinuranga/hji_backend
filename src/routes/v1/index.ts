@@ -1,4 +1,6 @@
 import express, { Router } from 'express';
+import department_designationRoute from './department_designation.route';
+import departmentRoute from './department.route';
 import devRoute from './dev.route';
 import userRoute from './user.route';
 import clientRoute from './client.route';
@@ -17,6 +19,8 @@ interface defaultRoutesObj {
   route: Router;
 }
 const defaultRoutes:defaultRoutesObj[] = [
+  { path: '/department_designation', route: department_designationRoute },
+  { path: '/department', route: departmentRoute },
   { path: '/dev', route: devRoute },
   { path: '/user', route: userRoute },
   { path: '/client', route: clientRoute },

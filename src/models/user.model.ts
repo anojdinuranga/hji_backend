@@ -96,7 +96,7 @@ const user_login = async ( employeeNumber:string, password:string ) => {
 
 };
 
-const user_add = async ( employeeNumber: string, name: string, password: string, email: string|null, mobile: string|null, authUserId:number ) => {
+const user_add = async ( employeeNumber: string, name: string, password: string, email: string|null, mobile: string|null,department:number,designation:number, authUserId:number ) => {
 
     try {
 
@@ -105,9 +105,9 @@ const user_add = async ( employeeNumber: string, name: string, password: string,
 
         let result = await db.query(`
             INSERT INTO 
-                user (employee_number, name, password, email, mobile, role, status, added_by, added_time) 
-            VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        `, [employeeNumber, name, password, email, mobile, 2, 2, authUserId, currentDateTime]);
+                user (employee_number, name, password, email, mobile,department,designation, role, status, added_by, added_time) 
+            VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)
+        `, [employeeNumber, name, password, email, mobile,department,designation, 2, 2, authUserId, currentDateTime]);
 
         if (result.status) {
             return DefaultResponse.successFormat("200", {
@@ -202,12 +202,12 @@ const user_view = async (userId: number) => {
     
 };
 
-const user_edit = async (userId: number, employeeNumber: string, name: string, email: string, mobile: string, authUserId:number) => {
+const user_edit = async (userId: number, employeeNumber: string, name: string, email: string, mobile: string,department:number,designation:number, authUserId:number) => {
 
     try {
         const currentDateTime = DateTime.now().setZone("UTC").toFormat("y-MM-dd HH:mm:ss");
 
-        let result = await db.query('UPDATE user SET employee_number = ?, name = ?, email = IF(email = ?, email, ?), mobile = ?, updated_by = ?, updated_time = ? WHERE id = ?', [employeeNumber, name, email, email, mobile, authUserId, currentDateTime, userId]);
+        let result = await db.query('UPDATE user SET employee_number = ?, name = ?, email = IF(email = ?, email, ?), mobile = ?,department = ?,designation = ?, updated_by = ?, updated_time = ? WHERE id = ?', [employeeNumber, name, email, email, mobile, department,designation, authUserId, currentDateTime, userId]);
         console.log("🚀 ~ constuser_edit= ~ result:", result)
 
         if (result.status) {
