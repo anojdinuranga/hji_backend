@@ -59,6 +59,10 @@ export default router;
  *                type: integer
  *                description: sample type
  *                example: 1
+ *              file2:
+ *                type: string
+ *                description: file (excel, csv, pdf)
+ *                example: "example.xlsx"
  *     responses:
  *       '200':
  *         description: Success
@@ -108,6 +112,10 @@ export default router;
  *                type: integer
  *                description: sample type
  *                example: 1
+ *              file2:
+ *                type: string
+ *                description: file (excel, csv, pdf)
+ *                example: "example.xlsx"
  *     responses:
  *       '200':
  *         description: Success

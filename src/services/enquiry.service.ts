@@ -18,7 +18,7 @@ const enquiry_add = async ( data: enquiry_add_data ) =>{
     try {
 
         let result;
-        result = await enquiryModel.enquiry_add(data.client, data.type, data.file, data.developmentType, data.orderType, data.sampleType, data.authUserId);
+        result = await enquiryModel.enquiry_add(data.client, data.type, data.file, data.developmentType, data.orderType, data.sampleType,data.file2, data.authUserId);
         if(!result.status) {
             return result;
         }
@@ -35,7 +35,7 @@ const enquiry_edit = async ( data: enquiry_edit_data ) =>{
     try {
 
         let result;
-        result = await enquiryModel.enquiry_edit(data.id, data.client, data.type, data.file, data.developmentType, data.orderType, data.sampleType, data.authUserId);
+        result = await enquiryModel.enquiry_edit(data.id, data.client, data.type, data.file, data.developmentType, data.orderType, data.sampleType,data.file2, data.authUserId);
         console.log("🚀 ~ constenquiry_edit= ~ data:", data)
         if(!result.status) {
             return result;

@@ -96,18 +96,26 @@ const user_login = async ( employeeNumber:string, password:string ) => {
 
 };
 
-const user_add = async ( employeeNumber: string, name: string, password: string, email: string|null, mobile: string|null,department:number,designation:number, authUserId:number ) => {
-
+const user_add = async (
+    employeeNumber: string,
+    name: string,
+    password: string,
+    email: string|null,
+    mobile: string|null,
+    department: number,
+    designation: number,
+    approveLevel: number,
+    authUserId?: number // Optional parameter
+) => {
     try {
-
-        password = await bcrypt.hash( password, config.pass_salt ); // Hash the password
+        password = await bcrypt.hash(password, config.pass_salt);
         const currentDateTime = DateTime.now().setZone("UTC").toFormat("y-MM-dd HH:mm:ss");
 
         let result = await db.query(`
             INSERT INTO 
-                user (employee_number, name, password, email, mobile,department,designation, role, status, added_by, added_time) 
-            VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)
-        `, [employeeNumber, name, password, email, mobile,department,designation, 2, 2, authUserId, currentDateTime]);
+                user (employee_number, name, password, email, mobile, department, designation, approve_level, role, status, added_by, added_time) 
+            VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `, [employeeNumber, name, password, email, mobile, department, designation, approveLevel, 2, 2, authUserId || 0, currentDateTime]);
 
         if (result.status) {
             return DefaultResponse.successFormat("200", {
@@ -115,13 +123,12 @@ const user_add = async ( employeeNumber: string, name: string, password: string,
             });
         }
         return result;
-
-    } catch ( err ) {
-        logger.error( err );
+    } catch (err) {
+        logger.error(err);
         return DefaultResponse.errorFormat("500");
     }
-    
 };
+
 
 const user_list = async () => {
 
@@ -202,12 +209,12 @@ const user_view = async (userId: number) => {
     
 };
 
-const user_edit = async (userId: number, employeeNumber: string, name: string, email: string, mobile: string,department:number,designation:number, authUserId:number) => {
+const user_edit = async (userId: number, employeeNumber: string, name: string, email: string, mobile: string,department:number,designation:number,approveLevel:number, authUserId:number) => {
 
     try {
         const currentDateTime = DateTime.now().setZone("UTC").toFormat("y-MM-dd HH:mm:ss");
 
-        let result = await db.query('UPDATE user SET employee_number = ?, name = ?, email = IF(email = ?, email, ?), mobile = ?,department = ?,designation = ?, updated_by = ?, updated_time = ? WHERE id = ?', [employeeNumber, name, email, email, mobile, department,designation, authUserId, currentDateTime, userId]);
+        let result = await db.query('UPDATE user SET employee_number = ?, name = ?, email = IF(email = ?, email, ?), mobile = ?,department = ?,designation = ?,approve_level = ?, updated_by = ?, updated_time = ? WHERE id = ?', [employeeNumber, name, email, email, mobile, department,designation,approveLevel, authUserId, currentDateTime, userId]);
         console.log("🚀 ~ constuser_edit= ~ result:", result)
 
         if (result.status) {
