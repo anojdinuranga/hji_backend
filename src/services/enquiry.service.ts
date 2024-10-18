@@ -19,8 +19,9 @@ const enquiry_add = async ( data: enquiry_add_data ) =>{
 
         let result;
         result = await enquiryModel.enquiry_add(data.client, data.type, data.file, data.developmentType, data.orderType, data.sampleType,data.file2, data.authUserId);
-        if(!result.status) {
-            return result;
+        
+        if(result.status){
+            await enquiryModel.enquiry_data_edit();
         }
         return result;
 

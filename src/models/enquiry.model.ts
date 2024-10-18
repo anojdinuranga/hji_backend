@@ -72,7 +72,9 @@ const enquiry_view = async (enquiryId: number) => {
                 enquiry.file, 
                 enquiry.development_type, 
                 enquiry.order_type, 
-                enquiry.sample_type 
+                enquiry.sample_type,
+                enquiry.enq_number,
+                enquiry.gsr_number  
             FROM enquiry
             INNER JOIN client ON enquiry.client = client.id  -- Inner join to get client name
             WHERE enquiry.id = ?
@@ -114,6 +116,29 @@ const enquiry_edit = async (enquiryId: number, client: number|null, type: number
     
 };
 
+const enquiry_data_edit = async () => {
+
+    try {
+        const currentDateTime = DateTime.now().setZone("UTC").toFormat("y-MM-dd HH:mm:ss");
+        console.log(currentDateTime);
+        let result = await db.query(`
+            UPDATE enquiry 
+            SET enq_number = CONCAT('ENQ-', LPAD(id, 5, '0')),
+                gsr_number = CONCAT('FT-', LPAD(id, 5, '0'))
+        `, []);
+
+        if (result.status) {
+            return DefaultResponse.successFormat("200");
+        }
+        return result;
+
+    } catch ( err ) {
+        logger.error( err );
+        return DefaultResponse.errorFormat("500");
+    }
+    
+};
+
 const enquiry_delete = async (enquiryId: number) =>{
 
     try {
@@ -137,7 +162,8 @@ export default {
     enquiry_edit,
     enquiry_view,
     enquiry_list,
-    enquiry_delete
+    enquiry_delete,
+    enquiry_data_edit
 }
 
 

@@ -125,7 +125,7 @@ const user_register_request_accept = async ( data:user_register_request_accept_d
         }
         console.log("🚀 ~ constuser_register_request_accept= ~ userRegisterRequest:", userRegisterRequest.data);
 
-        let userAdd = await userModel.user_add(userRegisterRequest.data.employee_number, userRegisterRequest.data.name, data.password, data.email, data.mobile,data.department,data.designation, data.authUserId);
+        let userAdd = await userModel.user_add(userRegisterRequest.data.employee_number, userRegisterRequest.data.name, data.password, data.email, data.mobile,data.department,data.designation,data.approveLevel, data.authUserId);
         if(!userAdd.status) {
             return userAdd;
         }
