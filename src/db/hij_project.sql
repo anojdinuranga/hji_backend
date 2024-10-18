@@ -51,6 +51,14 @@ INSERT INTO `client` (`id`, `name`, `contact_number`, `email`, `poc_name`, `poc_
 (3, 'mmmm', '0115623584', 'example@example.com', 'example', '05532658441', 'example', 'uploads/17269904576542hutgdtz.jpg', 2, NULL, NULL, 9, '2024-09-22 02:05:29'),
 (7, 'sanjana', '0767358574', '2020t00929@stu.cmb.ac.lk', '4545454', '0767358574', 'kuliyapitiya', '1727334439588hiuqwqw4.png', 2, 1, '2024-09-26 01:37:19', 1, '2024-09-24 16:20:55');
 
+--
+-- Dumping data for table `client`
+--
+
+INSERT INTO `client` (`id`, `name`, `contact_number`, `email`, `poc_name`, `poc_contact_number`, `head_office_address`, `logo`, `status`, `updated_by`, `updated_time`, `added_by`, `added_time`) VALUES
+(3, 'mmmm', '0115623584', 'example@example.com', 'example', '05532658441', 'example', 'uploads/17269904576542hutgdtz.jpg', 2, NULL, NULL, 9, '2024-09-22 02:05:29'),
+(7, 'sanjana', '0767358574', '2020t00929@stu.cmb.ac.lk', '4545454', '0767358574', 'kuliyapitiya', '1727334439588hiuqwqw4.png', 2, 1, '2024-09-26 01:37:19', 1, '2024-09-24 16:20:55');
+
 -- --------------------------------------------------------
 
 --
@@ -307,6 +315,165 @@ CREATE TABLE `enquiry_trims` (
 INSERT INTO `enquiry_trims` (`id`, `enquiry_id`, `type`, `description`, `content`, `placement`, `added_by`, `added_time`, `updated_by`, `updated_time`) VALUES
 (1, 1, 1, 'example', 'example', 'example', 1, '2024-10-14 17:29:48', NULL, NULL);
 
+--
+-- Dumping data for table `customer_order`
+--
+
+INSERT INTO `customer_order` (`id`, `cr_number`, `buyer_id`, `enquiry_date`, `style_no`, `image`, `fabric_blend`, `combo_no`, `value_added_process`, `projected_qty_pieces`, `sam_per_piece`, `lapdip_no`, `expected_order_placement_date`, `quoted_price`, `fabric_price`, `fabric_consumption`, `yarn_price`, `lapdip_cost`, `trim_cost`, `tech_pack`, `gsm`, `status`, `added_by`, `added_time`, `updated_by`, `updated_time`) VALUES
+(3, 'example', 1, '2021-01-01', 'example', NULL, 'example', 'example', 'yes', 1, 1.00, 'example', '2021-01-01', 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, NULL, 1.00, 1, 1, '2024-09-25 04:37:36', NULL, '2024-09-25 10:07:36'),
+(4, 'example', 1, '2021-01-01', 'example', NULL, 'example', 'example', 'yes', 1, 1.00, 'example', '2021-01-01', 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, NULL, 1.00, 1, 1, '2024-09-25 04:41:40', NULL, '2024-09-25 10:11:40'),
+(5, 'example', 1, '2021-01-01', 'example', NULL, 'example', 'example', 'yes', 1, 1.00, 'example', '2021-01-01', 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, NULL, 1.00, 1, 1, '2024-09-25 04:41:44', NULL, '2024-09-25 10:11:44'),
+(6, 'example', 1, '2021-01-01', 'example', NULL, 'example', 'example', 'yes', 1, 1.00, 'example', '2021-01-01', 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, NULL, 1.00, 1, 1, '2024-09-25 04:41:45', NULL, '2024-09-25 10:11:45'),
+(7, '565656', 3, '2024-09-27', '56', NULL, '556', '565', 'yes', 5656, 556.00, '55', '2024-09-25', 4545.00, 4545.00, 45545.00, 5656.00, 5656.00, 5656.00, NULL, 5656.00, 1, 1, '2024-09-25 04:44:37', NULL, '2024-09-25 10:14:37');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `enquiry`
+--
+
+CREATE TABLE `enquiry` (
+  `id` int(11) NOT NULL,
+  `client` int(11) DEFAULT NULL,
+  `type` int(11) DEFAULT NULL,
+  `file` varchar(500) DEFAULT NULL,
+  `development_type` int(11) DEFAULT NULL,
+  `order_type` int(11) DEFAULT NULL,
+  `sample_type` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `added_by` int(11) DEFAULT NULL,
+  `added_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_by` int(11) DEFAULT NULL,
+  `updated_time` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `enquiry`
+--
+
+INSERT INTO `enquiry` (`id`, `client`, `type`, `file`, `development_type`, `order_type`, `sample_type`, `status`, `added_by`, `added_time`, `updated_by`, `updated_time`) VALUES
+(1, 1, 1, 'example.xlsx', 1, 1, 1, 1, 1, '2024-10-14 13:53:52', NULL, NULL),
+(2, 1, 1, NULL, NULL, NULL, NULL, 1, 1, '2024-10-14 14:10:42', NULL, NULL),
+(3, 1, 1, NULL, NULL, NULL, NULL, 1, 1, '2024-10-14 17:27:16', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `enquiry_accessory_fabric`
+--
+
+CREATE TABLE `enquiry_accessory_fabric` (
+  `id` int(11) NOT NULL,
+  `enquiry_id` int(11) NOT NULL,
+  `knit_structure` varchar(100) DEFAULT NULL,
+  `blend` varchar(100) DEFAULT NULL,
+  `gsm` int(11) DEFAULT NULL,
+  `placement` varchar(100) DEFAULT NULL,
+  `added_by` int(11) DEFAULT NULL,
+  `added_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_by` int(11) DEFAULT NULL,
+  `updated_time` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `enquiry_accessory_fabric`
+--
+
+INSERT INTO `enquiry_accessory_fabric` (`id`, `enquiry_id`, `knit_structure`, `blend`, `gsm`, `placement`, `added_by`, `added_time`, `updated_by`, `updated_time`) VALUES
+(1, 1, 'example', 'example', 1, 'example', NULL, '2024-10-14 17:27:26', NULL, NULL),
+(2, 1, 'example', 'example', 1, 'example', NULL, '2024-10-14 17:28:42', NULL, NULL),
+(3, 1, 'example', 'example', 1, 'example', NULL, '2024-10-14 17:29:48', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `enquiry_main_fabric`
+--
+
+CREATE TABLE `enquiry_main_fabric` (
+  `id` int(11) NOT NULL,
+  `enquiry_id` int(11) NOT NULL,
+  `knit_structure` varchar(100) DEFAULT NULL,
+  `blend` varchar(100) DEFAULT NULL,
+  `gsm` int(11) DEFAULT NULL,
+  `finish` varchar(100) DEFAULT NULL,
+  `dry_method` varchar(100) DEFAULT NULL,
+  `placement` varchar(100) DEFAULT NULL,
+  `added_by` int(11) DEFAULT NULL,
+  `added_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_by` int(11) DEFAULT NULL,
+  `updated_time` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `enquiry_main_fabric`
+--
+
+INSERT INTO `enquiry_main_fabric` (`id`, `enquiry_id`, `knit_structure`, `blend`, `gsm`, `finish`, `dry_method`, `placement`, `added_by`, `added_time`, `updated_by`, `updated_time`) VALUES
+(2, 1, 'example', 'example', 1, 'example', 'example', 'example', 1, '2024-10-14 17:27:26', NULL, NULL),
+(3, 1, 'example', 'example', 1, 'example', 'example', 'example', 1, '2024-10-14 17:28:42', NULL, NULL),
+(4, 1, 'example', 'example', 1, 'example', 'example', 'example', 1, '2024-10-14 17:29:48', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `enquiry_spec_sheet`
+--
+
+CREATE TABLE `enquiry_spec_sheet` (
+  `id` int(11) NOT NULL,
+  `enquiry_id` int(11) NOT NULL,
+  `point_of_measure` varchar(200) DEFAULT NULL,
+  `code` varchar(100) DEFAULT NULL,
+  `how_to_measure` varchar(200) DEFAULT NULL,
+  `critical` int(11) DEFAULT NULL COMMENT '1=true, 2=false',
+  `type` int(11) DEFAULT NULL COMMENT '1=full, 2=half',
+  `tolerance` float DEFAULT NULL,
+  `s` float DEFAULT NULL,
+  `m` float DEFAULT NULL,
+  `l` float DEFAULT NULL,
+  `xl` float DEFAULT NULL,
+  `added_by` int(11) DEFAULT NULL,
+  `added_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_by` int(11) DEFAULT NULL,
+  `updated_time` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `enquiry_spec_sheet`
+--
+
+INSERT INTO `enquiry_spec_sheet` (`id`, `enquiry_id`, `point_of_measure`, `code`, `how_to_measure`, `critical`, `type`, `tolerance`, `s`, `m`, `l`, `xl`, `added_by`, `added_time`, `updated_by`, `updated_time`) VALUES
+(1, 1, 'example', 'example', 'example', 1, 1, 1, 1, 1, 1, 1, NULL, '2024-10-14 17:27:26', NULL, NULL),
+(2, 1, 'example', 'example', 'example', 1, 1, 1, 1, 1, 1, 1, NULL, '2024-10-14 17:28:42', NULL, NULL),
+(3, 1, 'example', 'example', 'example', 1, 1, 1, 1, 1, 1, 1, NULL, '2024-10-14 17:29:48', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `enquiry_trims`
+--
+
+CREATE TABLE `enquiry_trims` (
+  `id` int(11) NOT NULL,
+  `enquiry_id` int(11) NOT NULL,
+  `type` int(11) DEFAULT NULL COMMENT '1=button, 2=thread, 3=label',
+  `description` varchar(100) DEFAULT NULL,
+  `content` varchar(100) DEFAULT NULL,
+  `placement` varchar(100) DEFAULT NULL,
+  `added_by` int(11) DEFAULT NULL,
+  `added_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_by` int(11) DEFAULT NULL,
+  `updated_time` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `enquiry_trims`
+--
+
+INSERT INTO `enquiry_trims` (`id`, `enquiry_id`, `type`, `description`, `content`, `placement`, `added_by`, `added_time`, `updated_by`, `updated_time`) VALUES
+(1, 1, 1, 'example', 'example', 'example', 1, '2024-10-14 17:29:48', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -423,8 +590,10 @@ CREATE TABLE `user_register_request` (
 --
 
 INSERT INTO `user_register_request` (`id`, `name`, `employee_number`, `status`, `added_by`, `added_time`, `updated_by`, `updated_time`) VALUES
-(2, 'example', 'EMP0055', 1, 9, '2024-09-22 00:17:42', NULL, NULL),
-(4, 'sanjana33', 'EMP003', 2, 9, '2024-09-22 00:26:12', 1, '2024-09-22 00:28:19');
+(2, 'example', 'EMP0055', 2, 9, '2024-09-22 00:17:42', 1, '2024-09-26 00:51:47'),
+(4, 'sanjana33', 'EMP003', 3, 9, '2024-09-22 00:26:12', 1, '2024-09-25 11:14:01'),
+(7, 'dilhara yy', 'EMP00235', 3, 1, '2024-09-25 11:17:49', 1, '2024-09-26 01:39:45'),
+(8, 'dilhara aaaaa', 'EMP00239', 3, 1, '2024-09-25 11:18:42', 1, '2024-09-25 11:19:16');
 
 -- --------------------------------------------------------
 
@@ -560,8 +729,7 @@ ALTER TABLE `customer_order`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `department`
---
+
 ALTER TABLE `department`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
@@ -572,6 +740,7 @@ ALTER TABLE `department_designation`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
+
 -- AUTO_INCREMENT for table `enquiry`
 --
 ALTER TABLE `enquiry`
@@ -619,11 +788,12 @@ ALTER TABLE `user`
 ALTER TABLE `user_login_session`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
+
 --
 -- AUTO_INCREMENT for table `user_register_request`
 --
 ALTER TABLE `user_register_request`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `user_role`

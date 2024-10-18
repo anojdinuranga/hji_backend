@@ -72,14 +72,13 @@ const enquiry_trim_view = async (enquiryTrimId: number) =>{
                 enquiry_trims.content, 
                 enquiry_trims.placement
             FROM enquiry_trims 
-            WHERE id = ?
+            WHERE enquiry_id = ?
         `, [enquiryTrimId]);
 
         if (result.status) {
             if (result.data.length === 0) {
                 return DefaultResponse.errorFormat("404");
             }
-            return DefaultResponse.successFormat("200", result.data[0]);
         }
         return result;
 
