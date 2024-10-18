@@ -100,7 +100,25 @@ const user_register_request_accept = joi.object({
         .messages({ 'string.min': 'wrong password' })
         .required()
     ,
+    department: joi.number()
+        .integer()
+        .label("user department")
+        .messages({ 'number.base': 'wrong user Department' })
+        .required()
+    ,
+    designation: joi.number()
+        .integer()
+        .label("user designation")
+        .messages({ 'number.base': 'wrong user Designation' })
+        .required()
+    ,
 
+    approveLevel: joi.number()
+        .integer()
+        .label("Approve Level")
+        .messages({ 'number.base': 'wrong user Approval' })
+        .required()
+    ,
 
 });
 const user_register_request_reject = joi.object({

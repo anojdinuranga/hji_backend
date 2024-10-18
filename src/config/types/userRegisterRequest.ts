@@ -34,6 +34,7 @@ export interface user_register_request_accept_data {
     mobile: string; 
     department: number;
     designation: number;
+    approveLevel: number;
     authUserId: number;
     authUserRole: number;
 }
