@@ -3,6 +3,7 @@ export interface enquiry_add_data {
     client: number;
     type: number;
     file: string | null;
+    file2: string | null;
     developmentType: number | null;
     orderType: number | null;
     sampleType: number | null;
@@ -14,6 +15,7 @@ export interface enquiry_edit_data {
     client: number;
     type: number | null;
     file: string | null;
+    file2: string | null;
     developmentType: number | null;
     orderType: number | null;
     sampleType: number | null;

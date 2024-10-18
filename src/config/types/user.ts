@@ -23,6 +23,7 @@ export interface user_add_data {
     mobile: string;
     department: number;
     designation: number;
+    approveLevel: number;
     authUserId: number;
     authUserRole: number;
 }
@@ -33,6 +34,7 @@ export interface user_edit_data {
     email: string;
     department: number;
     designation: number;
+    approveLevel: number;
     mobile: string;
     authUserId: number;
     authUserRole: number;

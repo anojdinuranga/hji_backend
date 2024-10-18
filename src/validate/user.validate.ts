@@ -86,6 +86,13 @@ const user_add = joi.object({
         .required()
     ,
 
+    approveLevel: joi.number()
+        .integer()
+        .label("Approve Level")
+        .messages({ 'number.base': 'wrong user Approval' })
+        .required()
+    ,
+
 });
 
 const user_edit = joi.object({
@@ -138,6 +145,12 @@ const user_edit = joi.object({
         .required()
     ,
 
+    approveLevel: joi.number()
+        .integer()
+        .label("Approve Level")
+        .messages({ 'number.base': 'wrong user Approval' })
+        .required()
+    ,
 });
 
 const user_list = joi.object({

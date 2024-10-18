@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 16, 2024 at 08:00 PM
+-- Generation Time: Oct 18, 2024 at 11:09 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -119,7 +119,8 @@ CREATE TABLE `department` (
 
 INSERT INTO `department` (`id`, `department_name`, `status`, `added_by`, `added_time`, `updated_by`, `updated_time`) VALUES
 (2, 'sdf', 1, 1, '2024-10-16 11:09:37', NULL, NULL),
-(3, 'asdas', 1, 1, '2024-10-16 11:10:09', NULL, NULL);
+(3, 'asdas', 1, 1, '2024-10-16 11:10:09', NULL, NULL),
+(13, 'sd', 1, 1, '2024-10-18 01:25:50', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -146,7 +147,8 @@ INSERT INTO `department_designation` (`id`, `department_id`, `designation`, `sta
 (1, 2, 'sdf', 1, 1, '2024-10-16 11:09:37', NULL, NULL),
 (2, 3, 'asdsad', 1, 1, '2024-10-16 11:10:09', NULL, NULL),
 (3, 3, 'asdasd', 1, 1, '2024-10-16 11:10:09', NULL, NULL),
-(4, 3, 'dasdsad', 1, 1, '2024-10-16 11:10:09', NULL, NULL);
+(4, 3, 'dasdsad', 1, 1, '2024-10-16 11:10:09', NULL, NULL),
+(17, 13, 'sds', 1, 1, '2024-10-18 01:25:50', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -158,7 +160,8 @@ CREATE TABLE `enquiry` (
   `id` int(11) NOT NULL,
   `client` int(11) DEFAULT NULL,
   `type` int(11) DEFAULT NULL,
-  `file` varchar(500) DEFAULT NULL,
+  `file` longtext DEFAULT NULL,
+  `file_2` varchar(500) DEFAULT NULL,
   `development_type` int(11) DEFAULT NULL,
   `order_type` int(11) DEFAULT NULL,
   `sample_type` int(11) DEFAULT NULL,
@@ -173,10 +176,18 @@ CREATE TABLE `enquiry` (
 -- Dumping data for table `enquiry`
 --
 
-INSERT INTO `enquiry` (`id`, `client`, `type`, `file`, `development_type`, `order_type`, `sample_type`, `status`, `added_by`, `added_time`, `updated_by`, `updated_time`) VALUES
-(1, 1, 1, 'example.xlsx', 1, 1, 1, 1, 1, '2024-10-14 13:53:52', NULL, NULL),
-(2, 1, 1, NULL, NULL, NULL, NULL, 1, 1, '2024-10-14 14:10:42', NULL, NULL),
-(3, 1, 1, NULL, NULL, NULL, NULL, 1, 1, '2024-10-14 17:27:16', NULL, NULL);
+INSERT INTO `enquiry` (`id`, `client`, `type`, `file`, `file_2`, `development_type`, `order_type`, `sample_type`, `status`, `added_by`, `added_time`, `updated_by`, `updated_time`) VALUES
+(1, 1, 1, 'example.xlsx', NULL, 1, 1, 1, 1, 1, '2024-10-14 13:53:52', NULL, NULL),
+(2, 1, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, '2024-10-14 14:10:42', NULL, NULL),
+(3, 1, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, '2024-10-14 17:27:16', NULL, NULL),
+(4, 3, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, '2024-10-18 01:51:08', NULL, NULL),
+(5, 3, 2, NULL, NULL, 1, 1, 1, 1, 1, '2024-10-18 01:51:18', NULL, NULL),
+(6, 3, 2, NULL, NULL, 1, 1, 1, 1, 1, '2024-10-18 01:52:35', NULL, NULL),
+(7, 3, 1, '', NULL, NULL, NULL, NULL, 1, 1, '2024-10-18 02:10:37', NULL, NULL),
+(8, 3, 1, '', NULL, NULL, NULL, NULL, 1, 1, '2024-10-18 02:11:18', NULL, NULL),
+(9, 3, 1, '', NULL, NULL, NULL, NULL, 1, 1, '2024-10-18 02:34:02', NULL, NULL),
+(10, 3, 2, '', NULL, NULL, NULL, NULL, 1, 1, '2024-10-18 02:34:57', NULL, NULL),
+(11, 3, 1, '', NULL, NULL, NULL, NULL, 1, 1, '2024-10-18 03:37:26', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -331,6 +342,7 @@ CREATE TABLE `user` (
   `mobile` varchar(15) DEFAULT NULL,
   `department` int(11) NOT NULL,
   `designation` int(11) NOT NULL,
+  `approve_level` int(11) NOT NULL,
   `status` int(11) DEFAULT 1,
   `role` int(11) DEFAULT NULL,
   `added_by` int(11) DEFAULT NULL,
@@ -343,12 +355,13 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `employee_number`, `name`, `password`, `email`, `mobile`, `department`, `designation`, `status`, `role`, `added_by`, `added_time`, `updated_by`, `updated_time`) VALUES
-(1, 'EMP001', 'super admin', '$2a$10$ceeb2bcf7836hcd2c40b1ujoA/EG5m0CBwk19mtdLfKX1ibV0dMSe', 'example@email.com', '0786541232', 0, 0, 2, 1, NULL, '2024-04-06 11:21:16', 1, '2024-09-20 14:48:20'),
-(8, 'EMP002', 'sanjana', '$2a$10$ceeb2bcf7836hcd2c40b1ujoA/EG5m0CBwk19mtdLfKX1ibV0dMSe', 'sanjana@example.com', '0765623214', 0, 0, 2, 2, 1, '2024-09-22 00:01:43', NULL, '2024-09-22 05:31:43'),
-(9, 'EMP0020', 'sanjana2', '$2a$10$ceeb2bcf7836hcd2c40b1ujoA/EG5m0CBwk19mtdLfKX1ibV0dMSe', 'sanjana2@example.com', '0118862354', 0, 0, 2, 2, 1, '2024-09-22 00:16:32', NULL, '2024-09-22 05:46:32'),
-(10, 'EMP003', 'sanjana33', '$2a$10$ceeb2bcf7836hcd2c40b1ujoA/EG5m0CBwk19mtdLfKX1ibV0dMSe', 'sanjana33@example.com', '0118862354', 0, 0, 2, 2, 1, '2024-09-22 00:28:19', NULL, '2024-09-22 05:58:19'),
-(11, 'asdas', 'adasd', '$2a$10$ceeb2bcf7836hcd2c40b1uvpCZIgCCuogW4tKtAtjWnYbrL12O93i', 'noreply@switchsquid.com', '0778452145', 3, 2, 2, 2, 1, '2024-10-16 12:02:05', NULL, '2024-10-16 17:32:05');
+INSERT INTO `user` (`id`, `employee_number`, `name`, `password`, `email`, `mobile`, `department`, `designation`, `approve_level`, `status`, `role`, `added_by`, `added_time`, `updated_by`, `updated_time`) VALUES
+(1, 'EMP001', 'super admin', '$2a$10$ceeb2bcf7836hcd2c40b1ujoA/EG5m0CBwk19mtdLfKX1ibV0dMSe', 'example@email.com', '0786541232', 0, 0, 0, 2, 1, NULL, '2024-04-06 11:21:16', 1, '2024-09-20 14:48:20'),
+(8, 'EMP002', 'sanjana', '$2a$10$ceeb2bcf7836hcd2c40b1ujoA/EG5m0CBwk19mtdLfKX1ibV0dMSe', 'sanjana@example.com', '0765623214', 0, 0, 0, 2, 2, 1, '2024-09-22 00:01:43', NULL, '2024-09-22 05:31:43'),
+(9, 'EMP0020', 'sanjana2', '$2a$10$ceeb2bcf7836hcd2c40b1ujoA/EG5m0CBwk19mtdLfKX1ibV0dMSe', 'sanjana2@example.com', '0118862354', 0, 0, 0, 2, 2, 1, '2024-09-22 00:16:32', NULL, '2024-09-22 05:46:32'),
+(10, 'EMP003', 'sanjana33', '$2a$10$ceeb2bcf7836hcd2c40b1ujoA/EG5m0CBwk19mtdLfKX1ibV0dMSe', 'sanjana33@example.com', '0118862354', 0, 0, 0, 2, 2, 1, '2024-09-22 00:28:19', NULL, '2024-09-22 05:58:19'),
+(11, 'asdas', 'adasd', '$2a$10$ceeb2bcf7836hcd2c40b1uvpCZIgCCuogW4tKtAtjWnYbrL12O93i', 'noreply@switchsquid.com', '0778452145', 3, 2, 0, 2, 2, 1, '2024-10-16 12:02:05', NULL, '2024-10-16 17:32:05'),
+(13, 'sdfsd', 'dfds', '$2a$10$ceeb2bcf7836hcd2c40b1uvpCZIgCCuogW4tKtAtjWnYbrL12O93i', 'noreply@swditchsquid.com', '077425896', 3, 3, 1, 2, 2, 1, '2024-10-17 21:54:37', NULL, '2024-10-18 03:24:37');
 
 -- --------------------------------------------------------
 
@@ -382,7 +395,11 @@ INSERT INTO `user_login_session` (`id`, `user_id`, `token`, `login_time`, `ip_ad
 (16, 8, '$2a$10$ceeb2bcf7836hcd2c40b1uGIkOrvVtRwRySUZPRc6I2eP4ay6W7jq', '2024-09-22 00:01:51', '', 'Windows', 1),
 (17, 9, '$2a$10$ceeb2bcf7836hcd2c40b1u23Ug.Ha6UvhNfRf3xI64CbIwQLg/bfK', '2024-09-22 00:16:50', '', 'Windows', 1),
 (18, 1, '$2a$10$ceeb2bcf7836hcd2c40b1uAM1C6nJyqlZ30E.4Gms7g5Q/c/sQbC.', '2024-10-15 22:39:14', '', '', 1),
-(19, 1, '$2a$10$ceeb2bcf7836hcd2c40b1ufXKdwzu6qq63JXioSdSfg4GDf1UQUEu', '2024-10-16 10:52:16', '', '', 1);
+(19, 1, '$2a$10$ceeb2bcf7836hcd2c40b1ufXKdwzu6qq63JXioSdSfg4GDf1UQUEu', '2024-10-16 10:52:16', '', '', 1),
+(20, 1, '$2a$10$ceeb2bcf7836hcd2c40b1u1PcO.Q.MlIDk8PIZ7/c7n4aTk6FSIPe', '2024-10-17 20:03:52', '', '', 1),
+(21, 1, '$2a$10$ceeb2bcf7836hcd2c40b1uu4PzQkLEc7bY8z62q2Dk7sdfGgo9BCO', '2024-10-17 20:23:26', '', '', 1),
+(22, 1, '$2a$10$ceeb2bcf7836hcd2c40b1uogaMT0xVTM.B/7VBROSzBol6T2KFi72', '2024-10-18 01:39:19', '', 'Windows', 1),
+(23, 1, '$2a$10$ceeb2bcf7836hcd2c40b1uSmUykAABZq1rFW1yggOL/TM7aPco3cS', '2024-10-18 01:57:23', '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -546,19 +563,19 @@ ALTER TABLE `customer_order`
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `department_designation`
 --
 ALTER TABLE `department_designation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `enquiry`
 --
 ALTER TABLE `enquiry`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `enquiry_accessory_fabric`
@@ -594,13 +611,13 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `user_login_session`
 --
 ALTER TABLE `user_login_session`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `user_register_request`

@@ -9,7 +9,7 @@ import { DateTime } from 'luxon';
 
 
 
-const enquiry_add = async (client: number, type: number, file: string|null, developmentType: number|null, orderType: number|null, sampleType: number|null, authUserId: number) => {
+const enquiry_add = async (client: number, type: number, file: string|null, developmentType: number|null, orderType: number|null, sampleType: number|null,file2: string|null, authUserId: number) => {
 
     try {
 
@@ -17,10 +17,10 @@ const enquiry_add = async (client: number, type: number, file: string|null, deve
 
         let result = await db.query(`
             INSERT INTO 
-                enquiry (client, type, file, development_type, order_type, sample_type, status, added_by, added_time) 
-            VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                enquiry (client, type, file,file_2, development_type, order_type, sample_type, status, added_by, added_time) 
+            VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `, [
-            client, type, file, developmentType, orderType, sampleType, 1, authUserId, currentDateTime
+            client, type, file,file2, developmentType, orderType, sampleType, 1, authUserId, currentDateTime
         ]);
 
         if (result.status) {
@@ -67,14 +67,17 @@ const enquiry_view = async (enquiryId: number) => {
             SELECT 
                 enquiry.id, 
                 enquiry.client, 
+                client.name AS client_name,  -- Joining client name
                 enquiry.type, 
                 enquiry.file, 
                 enquiry.development_type, 
                 enquiry.order_type, 
                 enquiry.sample_type 
-            FROM enquiry 
-            WHERE id = ?
+            FROM enquiry
+            INNER JOIN client ON enquiry.client = client.id  -- Inner join to get client name
+            WHERE enquiry.id = ?
         `, [enquiryId]);
+        
 
         if (result.status) {
             if (result.data.length === 0) {
@@ -90,13 +93,13 @@ const enquiry_view = async (enquiryId: number) => {
     }
     
 };
-const enquiry_edit = async (enquiryId: number, client: number|null, type: number|null, file: string|null, developmentType: number|null, orderType: number|null, sampleType: number|null, authUserId: number) => {
+const enquiry_edit = async (enquiryId: number, client: number|null, type: number|null, file: string|null, developmentType: number|null, orderType: number|null, sampleType: number|null,file2: string|null, authUserId: number) => {
 
     try {
         const currentDateTime = DateTime.now().setZone("UTC").toFormat("y-MM-dd HH:mm:ss");
 
-        let result = await db.query('UPDATE enquiry SET client = ?, type = ?, file = ?, development_type = ?, order_type = ?, sample_type = ?, updated_by = ?, updated_time = ? WHERE id = ?', [
-            client, type, file, developmentType, orderType, sampleType, authUserId, currentDateTime, enquiryId
+        let result = await db.query('UPDATE enquiry SET client = ?, type = ?, file = ?,file_2 = ?, development_type = ?, order_type = ?, sample_type = ?, updated_by = ?, updated_time = ? WHERE id = ?', [
+            client, type, file,file2, developmentType, orderType, sampleType, authUserId, currentDateTime, enquiryId
         ]);
 
         if (result.status) {
