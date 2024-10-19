@@ -28,6 +28,8 @@ export interface enquiry_view_data {
     authUserRole: number;
 }
 export interface enquiry_list_data {
+    type: number;
+    status: number;
     authUserId: number;
     authUserRole: number;
 }

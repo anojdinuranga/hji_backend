@@ -116,7 +116,18 @@ const enquiry_edit = joi.object({
 });
 
 const enquiry_list = joi.object({
-
+    type: joi.number()
+        .integer()
+        .label("enquiry type")
+        .messages({ 'number.base': 'wrong enquiry type' })
+        .required()
+    ,
+    status: joi.number()
+        .integer()
+        .label("enquiry status")
+        .messages({ 'number.base': 'wrong enquiry status' })
+        .required()
+    ,
 });
 
 const enquiry_view = joi.object({

@@ -6,6 +6,54 @@ import logger from '../config/logger';
 import DefaultResponse from "../utils/DefaultResponse";
 import { DateTime } from 'luxon';
 
+interface EnquiryDetails {
+    id: number;
+    client: number;
+    client_name: string;
+    type: number;
+    file: string;
+    development_type: string;
+    order_type: string;
+    sample_type: string;
+    enq_number: string;
+    gsr_number: string;
+    value_added: string | null;
+    trim_type: number | null;
+    trim_description: string | null;
+    trim_content: string | null;
+    trim_placement: string | null;
+    point_of_measure: string | null;
+    code: string | null;
+    how_to_measure: string | null;
+    critical: number | null;
+    spec_type: number | null;
+    tolerance: number | null;
+    s: number | null;
+    m: number | null;
+    l: number | null;
+    xl: number | null;
+    knit_structure: string | null;
+    blend: string | null;
+    gsm: number | null;
+    finish: string | null;
+    dry_method: string | null;
+    fabric_placement: string | null;
+    combo_no: string | null;
+    size: string | null;
+    pieces: number | null;
+    accessory_knit_structure: string | null;
+    accessory_blend: string | null;
+    accessory_gsm: number | null;
+    accessory_placement: string | null;
+}
+
+
+// Define the structure of the DefaultResponse
+interface DefaultResponse<T> {
+    status: string;
+    message: string;
+    data?: T;
+}
 
 
 
@@ -37,15 +85,19 @@ const enquiry_add = async (client: number, type: number, file: string|null, deve
     
 };
 
-const enquiry_list = async () =>{
+const enquiry_list = async (type: number,status:number,authUserId:number) =>{
 
     try {
 
         let result = await db.query(`
             SELECT 
-                *
-            FROM enquiry
-        `, []);
+                enquiry.*, 
+                client.name AS client_name 
+            FROM enquiry 
+            INNER JOIN client ON enquiry.client = client.id 
+            WHERE enquiry.type = ? AND enquiry.status = ? AND enquiry.added_by = ?
+        `, [type, status, authUserId]);
+        
 
         if (result.status) {
             return DefaultResponse.successFormat("200", result.data);
@@ -59,7 +111,7 @@ const enquiry_list = async () =>{
     
 };
 
-const enquiry_view = async (enquiryId: number) => {
+const enquiry_view = async (enquiryId: number): Promise<DefaultResponse<any>> => {
     try {
         // Fetch enquiry details along with all related data using LEFT JOINs
         let result = await db.query(`
@@ -74,12 +126,34 @@ const enquiry_view = async (enquiryId: number) => {
                 enquiry.sample_type,
                 enquiry.enq_number,
                 enquiry.gsr_number,
-                eav.values AS value_added, -- Enquiry value added details
-                et.type AS trim_type, et.description AS trim_description, et.content AS trim_content, et.placement AS trim_placement, -- Trims details
-                ess.point_of_measure, ess.code, ess.how_to_measure, ess.critical, ess.type AS spec_type, ess.tolerance, ess.s, ess.m, ess.l, ess.xl, -- Spec sheet details
-                emf.knit_structure, emf.blend, emf.gsm, emf.finish, emf.dry_method, emf.placement AS fabric_placement, -- Main fabric details
-                ec.combo_no, ec.size, ec.pieces, -- Combo details
-                eaf.knit_structure AS accessory_knit_structure, eaf.blend AS accessory_blend, eaf.gsm AS accessory_gsm, eaf.placement AS accessory_placement -- Accessory fabric details
+                GROUP_CONCAT(DISTINCT eav.values) AS value_added, -- Enquiry value added details combined
+                et.type AS trim_type, 
+                et.description AS trim_description, 
+                et.content AS trim_content, 
+                et.placement AS trim_placement, -- Trims details
+                ess.point_of_measure, 
+                ess.code, 
+                ess.how_to_measure, 
+                ess.critical, 
+                ess.type AS spec_type, 
+                ess.tolerance, 
+                ess.s, 
+                ess.m, 
+                ess.l, 
+                ess.xl, -- Spec sheet details
+                emf.knit_structure, 
+                emf.blend, 
+                emf.gsm, 
+                emf.finish, 
+                emf.dry_method, 
+                emf.placement AS fabric_placement, -- Main fabric details
+                ec.combo_no, 
+                ec.size, 
+                ec.pieces, -- Combo details
+                eaf.knit_structure AS accessory_knit_structure, 
+                eaf.blend AS accessory_blend, 
+                eaf.gsm AS accessory_gsm, 
+                eaf.placement AS accessory_placement -- Accessory fabric details
             FROM enquiry
             LEFT JOIN client ON enquiry.client = client.id  
             LEFT JOIN enquiry_value_added eav ON enquiry.id = eav.enquiry_id
@@ -89,81 +163,111 @@ const enquiry_view = async (enquiryId: number) => {
             LEFT JOIN enquiry_combo ec ON enquiry.id = ec.enquiry_id
             LEFT JOIN enquiry_accessory_fabric eaf ON enquiry.id = eaf.enquiry_id
             WHERE enquiry.id = ?
+            GROUP BY enquiry.id
         `, [enquiryId]);
 
         if (result.status) {
             if (result.data.length === 0) {
-                return DefaultResponse.errorFormat("404");
+                return { status: "404", message: "Not Found" };
             }
 
-            // Extract the first result for the enquiry details
-            const enquiryDetails = result.data[0];
-
-            // Return the entire structure as is, including all related details
-            const output = {
-                enquiry: {
-                    id: enquiryDetails.id,
-                    client: enquiryDetails.client,
-                    client_name: enquiryDetails.client_name,
-                    type: enquiryDetails.type,
-                    file: enquiryDetails.file,
-                    development_type: enquiryDetails.development_type,
-                    order_type: enquiryDetails.order_type,
-                    sample_type: enquiryDetails.sample_type,
-                    enq_number: enquiryDetails.enq_number,
-                    gsr_number: enquiryDetails.gsr_number,
-                },
-                valueAdded: enquiryDetails.value_added ? enquiryDetails.value_added.split(',').map((value: string) => value.trim()) : [],  // Explicitly type 'value' as string
-                trims: {
-                    type: enquiryDetails.trim_type,
-                    description: enquiryDetails.trim_description,
-                    content: enquiryDetails.trim_content,
-                    placement: enquiryDetails.trim_placement
-                },
-                specSheets: {
-                    pointOfMeasure: enquiryDetails.point_of_measure,
-                    code: enquiryDetails.code,
-                    howToMeasure: enquiryDetails.how_to_measure,
-                    critical: enquiryDetails.critical,
-                    type: enquiryDetails.spec_type,
-                    tolerance: enquiryDetails.tolerance,
-                    sizes: {
-                        s: enquiryDetails.s,
-                        m: enquiryDetails.m,
-                        l: enquiryDetails.l,
-                        xl: enquiryDetails.xl
-                    }
-                },
-                mainFabric: {
-                    knitStructure: enquiryDetails.knit_structure,
-                    blend: enquiryDetails.blend,
-                    gsm: enquiryDetails.gsm,
-                    finish: enquiryDetails.finish,
-                    dryMethod: enquiryDetails.dry_method,
-                    placement: enquiryDetails.fabric_placement
-                },
-                combos: {
-                    comboNo: enquiryDetails.combo_no,
-                    size: enquiryDetails.size,
-                    pieces: enquiryDetails.pieces
-                },
-                accessoryFabric: {
-                    knitStructure: enquiryDetails.accessory_knit_structure,
-                    blend: enquiryDetails.accessory_blend,
-                    gsm: enquiryDetails.accessory_gsm,
-                    placement: enquiryDetails.accessory_placement
-                }
+            // Prepare the output structure
+            let output: any = {
+                id: enquiryId,
+                client: result.data[0].client,
+                client_name: result.data[0].client_name,
+                type: result.data[0].type,
+                file: result.data[0].file,
+                development_type: result.data[0].development_type,
+                order_type: result.data[0].order_type,
+                sample_type: result.data[0].sample_type,
+                enq_number: result.data[0].enq_number,
+                gsr_number: result.data[0].gsr_number,
+                valueAdded: result.data[0].value_added ? result.data[0].value_added.split(',').map((value: string) => value.trim()) : [],
+                trims: [],
+                specSheets: [],
+                mainFabric: [],
+                combos: [],
+                accessoryFabric: []
             };
 
-            return DefaultResponse.successFormat("200", output);
+            // Collect all unique trims and other related details
+            result.data.forEach((enquiryDetails: EnquiryDetails) => {
+                // Collect trims
+                if (enquiryDetails.trim_type) {
+                    output.trims.push({
+                        type: enquiryDetails.trim_type,
+                        description: enquiryDetails.trim_description,
+                        content: enquiryDetails.trim_content,
+                        placement: enquiryDetails.trim_placement
+                    });
+                }
+
+                // Collect spec sheets
+                if (enquiryDetails.point_of_measure) {
+                    output.specSheets.push({
+                        pointOfMeasure: enquiryDetails.point_of_measure,
+                        code: enquiryDetails.code,
+                        howToMeasure: enquiryDetails.how_to_measure,
+                        critical: enquiryDetails.critical,
+                        type: enquiryDetails.spec_type,
+                        tolerance: enquiryDetails.tolerance,
+                        sizes: {
+                            s: enquiryDetails.s,
+                            m: enquiryDetails.m,
+                            l: enquiryDetails.l,
+                            xl: enquiryDetails.xl
+                        }
+                    });
+                }
+
+                // Collect main fabric
+                if (enquiryDetails.knit_structure) {
+                    output.mainFabric.push({
+                        knitStructure: enquiryDetails.knit_structure,
+                        blend: enquiryDetails.blend,
+                        gsm: enquiryDetails.gsm,
+                        finish: enquiryDetails.finish,
+                        dryMethod: enquiryDetails.dry_method,
+                        placement: enquiryDetails.fabric_placement
+                    });
+                }
+
+                // Collect combos
+                if (enquiryDetails.combo_no) {
+                    output.combos.push({
+                        comboNo: enquiryDetails.combo_no,
+                        size: enquiryDetails.size,
+                        pieces: enquiryDetails.pieces
+                    });
+                }
+
+                // Collect accessory fabric
+                if (enquiryDetails.accessory_knit_structure) {
+                    output.accessoryFabric.push({
+                        knitStructure: enquiryDetails.accessory_knit_structure,
+                        blend: enquiryDetails.accessory_blend,
+                        gsm: enquiryDetails.accessory_gsm,
+                        placement: enquiryDetails.accessory_placement
+                    });
+                }
+            });
+
+            return { status: "200", message: "Success", data: output };
         }
-        return result;
+
+        return { status: "500", message: "Internal Server Error" };
 
     } catch (err) {
         logger.error(err);
-        return DefaultResponse.errorFormat("500");
+        return { status: "500", message: "Internal Server Error" };
     }
 };
+
+
+
+
+
 
 const enquiry_edit = async (enquiryId: number, client: number|null, type: number|null, file: string|null, developmentType: number|null, orderType: number|null, sampleType: number|null,file2: string|null, authUserId: number) => {
 
