@@ -43,19 +43,8 @@ const enquiry_list = async () =>{
 
         let result = await db.query(`
             SELECT 
-                enquiry.id, 
-                enquiry.client, 
-                client.name AS client_name,  -- Joining client name
-                enquiry.type, 
-                enquiry.file, 
-                enquiry.development_type, 
-                enquiry.order_type, 
-                enquiry.sample_type,
-                enquiry.enq_number,
-                enquiry.gsr_number,  
-                enquiry.added_time
+                *
             FROM enquiry
-            INNER JOIN client ON enquiry.client = client.id  -- Inner join to get client name
         `, []);
 
         if (result.status) {
