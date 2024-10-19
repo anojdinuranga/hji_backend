@@ -147,6 +147,13 @@
         "single_file_upload": [
             1,
             2
+        ],
+        "file_upload": [
+            1,
+            2,
+            3,
+            4,
+            5
         ]
     },
     "department": {
