@@ -45,6 +45,29 @@ const department_designation_edit = async ( departmentId: number, designation: s
     
 };
 
+const department_designation_delete_all = async (departmentId: number, authUserId: number) => {
+    try {
+        // You can include a log statement here for debugging purposes
+        logger.info(`Deleting all designations for department ID: ${departmentId}`);
+
+        // Construct the SQL query to delete all designations related to the department ID
+        const result = await db.query('DELETE FROM `department_designation` WHERE department_id = ?', [departmentId]);
+
+        if (result.status) {
+            // Optionally, log the deletion result
+            logger.info(`Successfully deleted designations for department ID: ${departmentId}`);
+            return DefaultResponse.successFormat("200", { message: "All designations deleted successfully." });
+        }
+        
+        // Return the result in case of failure
+        return DefaultResponse.errorFormat("400", { message: "Failed to delete designations." });
+    } catch (err) {
+        logger.error(err);
+        return DefaultResponse.errorFormat("500", { message: "Internal Server Error." });
+    }
+};
+
+
 const department_designation_list = async (  ) => {
 
     try {
@@ -100,5 +123,6 @@ export default {
     department_designation_add,
     department_designation_edit,
     department_designation_list,
-    department_designation_view
+    department_designation_view,
+    department_designation_delete_all
 }

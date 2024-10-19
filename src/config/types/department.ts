@@ -22,3 +22,9 @@ export interface department_view_data {
     authUserRole: number;
 
 }
+
+export interface department_delete_data {
+    departmentId: number;
+    authUserId: number;
+    authUserRole: number;
+}
