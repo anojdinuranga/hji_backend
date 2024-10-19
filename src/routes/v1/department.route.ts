@@ -7,6 +7,7 @@ router.post('/add', authenticate, controller.department_add);
 router.post('/edit', authenticate, controller.department_edit);
 router.get('/list', authenticate, controller.department_list);
 router.post('/view', authenticate, controller.department_view);
+router.post('/delete', authenticate, controller.department_delete);
 
 export default router;
 
@@ -121,4 +122,27 @@ export default router;
  *       '200':
  *         description: Success
  */
-    
+/**
+ * @swagger
+ * /department/delete:
+ *   post:
+ *     summary: department
+ *     description: department_delete
+ *     security:
+ *       - bearerAuth: []
+ *     tags: [department]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               departmentId:
+ *                 type: number
+ *                 description: department id
+ *                 example: 1
+ *     responses:
+ *       '200':
+ *         description: Success
+ */ 

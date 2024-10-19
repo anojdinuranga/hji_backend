@@ -17,19 +17,13 @@ const enquiry_add = joi.object({
         .required()
     ,
     file: joi.string()
-        .base64()
         .min(1)
-        .max(500 * 1024) // Maximum size for base64 string ~500KB
-        .required()
-        .allow(null)
-        .allow("")
+        .max(500)
         .label("file")
-        .messages({ 
-            'string.base': 'File must be a valid base64 string',
-            'string.min': 'File must not be empty',
-            'string.max': 'File must be less than 500KB'
-    }),
-    
+        .messages({ 'string.min': 'wrong file' })
+        .allow(null)
+        .required()
+    ,
     developmentType: joi.number()
         .integer()
         .label("development type")

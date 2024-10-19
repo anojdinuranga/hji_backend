@@ -161,6 +161,9 @@
         ],
         "department_view": [
             1
+        ],
+        "department_delete": [
+            1
         ]
     },
     "department_designation": {

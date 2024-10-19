@@ -181,6 +181,7 @@ const enquiry_data_add = joi.object({
                 .label("content")
                 .messages({ 'string.min': 'wrong content' })
                 .required()
+                .allow("")
             ,
             placement: joi.string()
                 .min(1)
@@ -192,6 +193,46 @@ const enquiry_data_add = joi.object({
         }))
         .label("enquiry trims")
         .messages({ 'array.min': 'wrong enquiry trims' })
+        .required()
+    ,
+    enquiryCombo: joi.array()
+        .items(joi.object({
+            comboNo: joi.string()
+                .min(1)
+                .max(10)
+                .label("comboNo")
+                .messages({ 'number.base': 'wrong comboNo' })
+                .required()
+            ,
+            size: joi.string()
+                .min(1)
+                .max(10)
+                .label("size")
+                .messages({ 'string.min': 'wrong size' })
+                .required()
+            ,
+            pieces: joi.string()
+                .min(1)
+                .max(10)
+                .label("pieces")
+                .messages({ 'string.min': 'wrong pieces' })
+                .required()
+            ,
+        }))
+        .label("enquiry combo")
+        .messages({ 'array.min': 'wrong enquiry combo' })
+        .required()
+    ,
+    values: joi.array()
+        .items(joi.string()
+            .min(1)
+            .max(100)
+            .label("value")
+            .messages({ 'string.min': 'wrong value' })
+            .required()
+        )
+        .label("values")
+        .messages({ 'array.min': 'wrong values' })
         .required()
     ,
 });

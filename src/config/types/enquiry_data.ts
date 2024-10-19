@@ -32,6 +32,12 @@ export interface enquiry_data_add_data {
         content: string;
         placement: string;
     }>;
+    enquiryCombo: Array<{
+        comboNo: string;
+        size: string;
+        pieces: string;
+    }>;
+    values: Array<string>;
     authUserId: number;
     authUserRole: number;
 }

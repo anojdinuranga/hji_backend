@@ -54,9 +54,19 @@ const department_view = joi.object({
 
 });
 
+const department_delete = joi.object({
+    departmentId: joi.number()
+        .integer()
+        .label("Department id")
+        .messages({ 'number.base': 'wrong Department id' })
+        .required()
+    ,
+
+});
 export default {
     department_add,
     department_edit,
     department_list,
-    department_view
+    department_view,
+    department_delete
 }
