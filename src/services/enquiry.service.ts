@@ -58,22 +58,7 @@ const enquiry_view = async ( data: enquiry_view_data ) =>{
         if(!result.status) {
             return result;
         }
-        let resultMainFabric = await enquiry_main_fabricModel.enquiry_main_fabric_view(data.id)
-        if(resultMainFabric.status) {
-            result.data.mainFabrics = resultMainFabric.data;            
-        }
-        let resultAccessoryFabric = await enquiry_accessory_fabricModel.enquiry_accessory_fabric_view(data.id)
-        if(resultAccessoryFabric.status) {
-            result.data.accessoryFabric = resultAccessoryFabric.data;            
-        }
-        let resultTrim = await enquiry_trimsModel.enquiry_trim_view(data.id)
-        if(resultTrim.status) {
-            result.data.trims = resultTrim.data;            
-        }
-        let resultSpecSheet = await enquiry_spec_sheetModel.enquiry_spec_sheet_view(data.id)
-        if(resultSpecSheet.status) {
-            result.data.specSheet = resultSpecSheet.data;            
-        }
+        
         return result;
 
     } catch (err) {
@@ -87,7 +72,7 @@ const enquiry_list = async (data:enquiry_list_data) =>{
     try {
 
         let result;
-        result = await enquiryModel.enquiry_list();
+        result = await enquiryModel.enquiry_list(data.type,data.status,data.authUserId);
         if(!result.status) {
             return result;
         }
