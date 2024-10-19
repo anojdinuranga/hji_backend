@@ -331,13 +331,66 @@ const enquiry_delete = async (enquiryId: number) =>{
     
 };
 
+const enquiry_validation = async ( id: number ) => {
+
+    try {
+
+        let result = await db.query(`SELECT enquiry.file
+        FROM enquiry
+        WHERE enquiry.id = ? `, [ id]);
+        if (!result.status) {
+            return result;
+        }
+        if(result.data.length === 0) {
+            return DefaultResponse.errorFormat('404');
+        }
+        return DefaultResponse.successFormat('200', result.data[0]);
+
+    } catch ( err ) {
+        logger.error( err );
+        return DefaultResponse.errorFormat('500');
+    }
+    
+};
+
+const enquiry_file_update = async (file: string, resultId: number, authUserId: number, authUserRole: number)=> {
+    try {
+        let result;
+        result  = await db.query('UPDATE enquiry SET file = ? WHERE id = ?', [file, resultId]);
+        if ( !result.status ) {
+            logger.error(result);
+            return DefaultResponse.errorFormat('500');
+        }
+        return DefaultResponse.successFormat('200');
+    } catch(err) {
+        logger.error(err);
+        return DefaultResponse.errorFormat('500');
+    }
+}
+
+const enquiry_file_2_update = async (file: string, resultId: number, authUserId: number, authUserRole: number)=> {
+    try {
+        let result;
+        result  = await db.query('UPDATE enquiry SET file_2 = ? WHERE id = ?', [file, resultId]);
+        if ( !result.status ) {
+            logger.error(result);
+            return DefaultResponse.errorFormat('500');
+        }
+        return DefaultResponse.successFormat('200');
+    } catch(err) {
+        logger.error(err);
+        return DefaultResponse.errorFormat('500');
+    }
+}
+
 export default {
     enquiry_add,
     enquiry_edit,
     enquiry_view,
     enquiry_list,
     enquiry_delete,
-    enquiry_data_edit
+    enquiry_data_edit,
+    enquiry_validation,
+    enquiry_file_update,
+    enquiry_file_2_update
 }
-
-

@@ -8,6 +8,7 @@ import authorize from '../utils/authorize';
 import logger from '../config/logger';
 import { DateTime } from 'luxon';
 import fs from 'fs';
+import enquiryModel from './enquiry.model';
 
 const sample_validation = async (resultId: number, authUserId: number, authUserRole: number)=> {
     try {
@@ -52,6 +53,26 @@ const fileControl = {
         naming: 'auto',
         destination: 'images/',
         afterProcess: sample_update
+    },
+    '1': {
+        comment: 'Enquiry file upload',
+        Allowed: /jpeg|jpg|png|pdf/,
+        maxSize: 5120,
+        access: [1,2],
+        validationFunc: enquiryModel.enquiry_validation,
+        naming: 'manual',
+        destination: 'enquires/',
+        afterProcess: enquiryModel.enquiry_file_update
+    },
+    '2': {
+        comment: 'Enquiry file upload',
+        Allowed: /jpeg|jpg|png|pdf/,
+        maxSize: 5120,
+        access: [1,2],
+        validationFunc: enquiryModel.enquiry_validation,
+        naming: 'manual',
+        destination: 'enquires/',
+        afterProcess: enquiryModel.enquiry_file_2_update
     }
 }
 
